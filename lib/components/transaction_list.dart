@@ -19,15 +19,13 @@ class TransactionList extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 15
-                  ),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.purple,
-                          width: 2
-                      )
+                    border: Border.all(
+                      color: Colors.purple,
+                      width: 2,
+                    ),
                   ),
                   padding: const EdgeInsets.all(10),
                   child: Text(
@@ -46,17 +44,15 @@ class TransactionList extends StatelessWidget {
                       transaction.title,
                       style: const TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       DateFormat('d/MM/y').format(transaction.date),
-                      style: const TextStyle(
-                        color: Colors.grey
-                      ),
-                    )
+                      style: const TextStyle(color: Colors.grey),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           );
