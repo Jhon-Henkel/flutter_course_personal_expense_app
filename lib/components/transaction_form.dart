@@ -52,10 +52,10 @@ class _TransactionFormState extends State<TransactionForm> {
               children: <Widget>[
                 TextButton(
                   onPressed: _submitForm,
-                  child: const Text(
+                  child: Text(
                     'Nova Transação',
                     style: TextStyle(
-                      color: Colors.purple,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
