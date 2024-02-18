@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course_personal_expense_app/models/transactions.dart';
 
@@ -31,20 +32,24 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Colors.blue,
         title: const Text('Despesas Pessoais'),
       ),
-      body: const Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             child: Card(
               elevation: 5,
               color: Colors.blue,
               child: Text('Gráfico'),
             )
           ),
-          Card(
-            child: Text('Lista de Transações'),
-          ),
+          Column(
+            children: _transactions.map((transaction) {
+              return Card(
+                child: Text(transaction.title),
+              );
+            }).toList(),
+          )
         ]
       )
     );
