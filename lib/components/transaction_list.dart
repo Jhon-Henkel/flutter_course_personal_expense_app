@@ -3,9 +3,10 @@ import 'package:flutter_course_personal_expense_app/models/transactions.dart';
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList(this.transactions, {super.key});
+  const TransactionList(this.transactions, this.onRemove, {super.key});
 
   final List<Transaction> transactions;
+  final void Function(String) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +56,17 @@ class TransactionList extends StatelessWidget {
                       transaction.title,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    subtitle:
-                        Text(DateFormat('d MMM y').format(transaction.date),
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.tertiary,
-                            )),
+                    subtitle: Text(
+                      DateFormat('d MMM y').format(transaction.date),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete),
+                      color: Theme.of(context).colorScheme.error,
+                      onPressed: () => onRemove(transaction.id),
+                    )
                   ),
                 );
               },
