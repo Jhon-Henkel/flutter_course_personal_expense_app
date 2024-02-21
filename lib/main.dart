@@ -32,6 +32,10 @@ class ExpensesApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
+          labelLarge: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
@@ -54,24 +58,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'teste1',
-      value: 10.40,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'teste2',
-      value: 30.99,
-      date: DateTime.now().subtract(const Duration(days: 4)),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'teste3',
-      value: 3.12,
-      date: DateTime.now().subtract(const Duration(days: 9)),
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'teste1',
+    //   value: 10.40,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'teste2',
+    //   value: 30.99,
+    //   date: DateTime.now().subtract(const Duration(days: 4)),
+    // ),
+    // Transaction(
+    //   id: 't3',
+    //   title: 'teste3',
+    //   value: 3.12,
+    //   date: DateTime.now().subtract(const Duration(days: 9)),
+    // ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -82,12 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
