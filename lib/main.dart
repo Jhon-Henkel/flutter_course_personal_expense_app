@@ -76,6 +76,36 @@ class _MyHomePageState extends State<MyHomePage> {
       value: 3.12,
       date: DateTime.now().subtract(const Duration(days: 9)),
     ),
+    Transaction(
+      id: 't4',
+      title: 'teste4',
+      value: 3.12,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'teste5',
+      value: 3.12,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'teste6',
+      value: 3.12,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
+    Transaction(
+      id: 't7',
+      title: 'teste7',
+      value: 3.12,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
+    Transaction(
+      id: 't8',
+      title: 'teste8',
+      value: 3.12,
+      date: DateTime.now().subtract(const Duration(days: 9)),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -120,23 +150,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      title: const Text('Despesas Pessoais'),
+      actions: <Widget>[
+        IconButton(
+          onPressed: () => _openTransactionFormModal(context),
+          icon: const Icon(Icons.add),
+        ),
+      ],
+    );
+    final availableHeight = MediaQuery.of(context).size.height
+        - appBar.preferredSize.height
+        - MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text('Despesas Pessoais'),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => _openTransactionFormModal(context),
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_transactions, _deleteTransaction),
+            SizedBox(
+              height: availableHeight * 0.3,
+              child: Chart(_recentTransactions),
+            ),
+            SizedBox(
+              height: availableHeight * 0.7,
+              child: TransactionList(_transactions, _deleteTransaction),
+            ),
           ],
         ),
       ),
