@@ -58,55 +58,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'teste1',
-      value: 10.40,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'teste2',
-      value: 30.99,
-      date: DateTime.now().subtract(const Duration(days: 4)),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'teste3',
-      value: 3.12,
-      date: DateTime.now().subtract(const Duration(days: 9)),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'teste4',
-      value: 3.12,
-      date: DateTime.now().subtract(const Duration(days: 9)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'teste5',
-      value: 3.12,
-      date: DateTime.now().subtract(const Duration(days: 9)),
-    ),
-    Transaction(
-      id: 't6',
-      title: 'teste6',
-      value: 3.12,
-      date: DateTime.now().subtract(const Duration(days: 9)),
-    ),
-    Transaction(
-      id: 't7',
-      title: 'teste7',
-      value: 3.12,
-      date: DateTime.now().subtract(const Duration(days: 9)),
-    ),
-    Transaction(
-      id: 't8',
-      title: 'teste8',
-      value: 3.12,
-      date: DateTime.now().subtract(const Duration(days: 9)),
-    ),
+    // Transaction(id: 't1',title: 'teste1',value: 10.40,date: DateTime.now()),
+    // Transaction(id: 't2',title: 'teste2',value: 30.99,date: DateTime.now().subtract(const Duration(days: 4))),
+    // Transaction(id: 't3',title: 'teste3',value: 3.12,date: DateTime.now().subtract(const Duration(days: 9))),
+    // Transaction(id: 't4',title: 'teste4',value: 3.12,date: DateTime.now().subtract(const Duration(days: 9))),
+    // Transaction(id: 't5',title: 'teste5',value: 3.12,date: DateTime.now().subtract(const Duration(days: 9))),
+    // Transaction(id: 't6',title: 'teste6',value: 3.12,date: DateTime.now().subtract(const Duration(days: 9))),
+    // Transaction(id: 't7',title: 'teste7',value: 3.12,date: DateTime.now().subtract(const Duration(days: 9))),
+    // Transaction(id: 't8',title: 'teste8',value: 3.12,date: DateTime.now().subtract(const Duration(days: 9))),
   ];
+
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((transaction) {
@@ -150,11 +112,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       backgroundColor: Theme.of(context).colorScheme.primary,
       title: const Text('Despesas Pessoais'),
       actions: <Widget>[
+        if (isLandscape)
+          IconButton(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(Colors.white),
+            ),
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+            icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+          ),
         IconButton(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+          ),
           onPressed: () => _openTransactionFormModal(context),
           icon: const Icon(Icons.add),
         ),
@@ -170,14 +150,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(
-              height: availableHeight * 0.30,
-              child: Chart(_recentTransactions),
-            ),
-            SizedBox(
-              height: availableHeight * 0.70,
-              child: TransactionList(_transactions, _deleteTransaction),
-            ),
+            if (_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * (isLandscape ? 0.7 : 0.3),
+                child: Chart(_recentTransactions),
+              ),
+            if (!_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * 0.70,
+                child: TransactionList(_transactions, _deleteTransaction),
+              ),
           ],
         ),
       ),
